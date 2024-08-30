@@ -38,10 +38,17 @@ app.post("/", function(req,res){
 })
 
 app.put("/", function(req,res){
-    for(let i=0;i<users[0].kidney.length;i++){
-        users[0].kidney[i].healthy = true;
+    if(isAnyUnhealthyKidney()){
+        for(let i=0;i<users[0].kidney.length;i++){
+            users[0].kidney[i].healthy = true;
+        }
+        res.json({msg : "Puting DONE"});
+    }else{
+        res.status(411).json({
+            msg : "No bad kidney"
+        });
     }
-    res.json({msg : "Puting DONE"});
+    
 })
 
 app.delete("/", function(req,res){
